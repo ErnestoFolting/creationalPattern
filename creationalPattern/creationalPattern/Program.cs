@@ -61,6 +61,7 @@ namespace creationalPattern
             //Output the current catalog
             kiosk1.catalog();
 
+            //Try to give the book that is not in storage
             kiosk1.giveBook(magazine3);
         }
     }
