@@ -9,7 +9,7 @@ namespace creationalPattern.Structure
     abstract class Accounting
     {
         public List<TextBook> storage = new List<TextBook>();
-        abstract public void giveBooks(List<TextBook> lst);
+        abstract public void giveBook(TextBook lst);
         public void arrival(List<TextBook> lst)
         {
             storage.AddRange(lst);
@@ -31,46 +31,36 @@ namespace creationalPattern.Structure
 
     class LibraryAccounting : Accounting
     {
-        public override void giveBooks(List<TextBook> lst)
+        public override void giveBook(TextBook textBook)
         {
-            foreach (var temp in lst)
+            if (!storage.Contains(textBook))
             {
-                if (!storage.Contains(temp))
-                {
-                    Console.WriteLine("\n!!! Missing textBook in the storage. Can not make the operation. !!!\n");
-                    return;
-                }
+                Console.WriteLine("\n!!! Missing textBook in the storage. Can not make the operation. !!!\n");
+                return;
             }
-            storage = storage.Where(item => lst.Contains(item) == false).ToList();
+            storage.Remove(textBook);
 
-            Console.WriteLine("----- NEW BORROW -----");
-            foreach (TextBook temp in lst)
-            {
-                temp.getInfo();
-            }
+            int sum = textBook.Price;
+            Console.WriteLine("----- NEW BORROW -----", sum);
+            textBook.getInfo();
         }   
 
     }
     class KioskAccounting : Accounting
     {
-        public override void giveBooks(List<TextBook> lst)
+        public override void giveBook(TextBook textBook)
         {
-            foreach(var temp in lst)
-            {
-                if (!storage.Contains(temp))
-                {
-                    Console.WriteLine("\n!!! Missing textBook in the storage. Can not make the operation. !!!\n");
-                    return;
-                }
-            }
-            storage = storage.Where(item => lst.Contains(item) == false).ToList();
 
-            int sum = lst.Sum(item => item.Price);
-            Console.WriteLine("----- NEW SALE {0} UAH-----",sum);
-            foreach (TextBook temp in lst)
+            if (!storage.Contains(textBook))
             {
-                temp.getInfo();
+                Console.WriteLine("\n!!! Missing textBook in the storage. Can not make the operation. !!!\n");
+                return;
             }
+            storage.Remove(textBook);
+
+            int sum = textBook.Price;
+            Console.WriteLine("----- NEW SALE {0} UAH-----",sum);
+            textBook.getInfo();
         }
     }
 }

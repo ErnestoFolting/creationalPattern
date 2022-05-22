@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace creationalPattern.Structure
 {
-    abstract class TextBook
+    public abstract class TextBook
     {
         public string Author;
         public string Title;
